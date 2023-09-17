@@ -1,0 +1,51 @@
+PackageSet {
+    AmentPackage {{ node_name.strip('/')|replace("/", "_") }} {
+        Artifact {{ node_name.strip('/')|replace("/", "_") }} {
+            Node {
+                name {{ node_name.strip('/')|replace("/", "_") }}{% if service_servers %}
+                ServiceServers {
+                    {% for service in service_servers %}
+                    ServiceServer {
+                        name "{{ service.name.strip('/') }}" service "{{ service.types[0]|replace("/srv/", ".") }}"
+                    }{% if not loop.last %},{% endif %}{% endfor %}}
+                {% endif %}{% if publishers %}
+                Publishers {
+                    {% for publisher in publishers %}
+                    Publisher {
+                        name "{{ publisher.name.strip('/') }}" message "{{ publisher.types[0]|replace("/msg/", ".") }}"
+                    }{% if not loop.last %},{% endif %}{% endfor %}}
+                {% endif %}{% if subscribers %}
+                Subscribers {
+                    {% for subscriber in subscribers %}
+                    Subscriber {
+                        name "{{ subscriber.name.strip('/') }}" message "{{ subscriber.types[0]|replace("/msg/", ".") }}"
+                    }{% if not loop.last %},{% endif %}{% endfor %}}
+                {% endif %}{% if service_clients %}
+                ServiceClients {
+                    {% for service in service_clients %}
+                    ServiceClient {
+                        name "{{ service.name.strip('/') }}" service "{{ service.types[0]|replace("/srv/", ".") }}"
+                    }{% if not loop.last %},{% endif %}{% endfor %}}
+                {% endif %}{% if action_servers %}
+                ActionServers {
+                    {% for action in action_servers %}
+                    ActionServer {
+                        name "{{ action.name.strip('/') }}" action "{{ action.types[0]|replace("/action/", ".") }}"
+                    }{% if not loop.last %},{% endif %}{% endfor %}}
+                {% endif %}{% if action_clients %}
+                ActionClients {
+                    {% for action in action_clients %}
+                    ActionClient {
+                        name "{{ action.name.strip('/') }}" action "{{ action.types[0]|replace("/action/", ".") }}"
+                    }{% if not loop.last %},{% endif %}{% endfor %}}
+                {% endif %}{% if parameters %}
+                Parameters {
+                    {% for parameter in parameters %}
+                    Parameter {
+                        name "{{ parameter.name.strip('/') }}" type {{ parameter.types }}
+                    }{% if not loop.last %},{% endif %}{% endfor %}}
+                {% endif %}}
+        }
+    }
+}
+

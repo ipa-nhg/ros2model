@@ -11,7 +11,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/templates',
-         ['templates/model.jinja', 'templates/node_model.jinja'])
+         ['templates/model.jinja', 'templates/node_model.jinja', 'templates/node_model_old.jinja'])
     ],
     install_requires=['ros2cli'],
     zip_safe=True,

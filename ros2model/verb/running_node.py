@@ -203,7 +203,7 @@ class RunningNodeVerb(VerbExtension):
             ),
             autoescape=True,
         )
-        template = env.get_template("node_model.jinja")
+        template = env.get_template("node_model_old.jinja")
         contents = template.render(
             node_name=target_node_name,
             subscribers=subscribers,
@@ -237,7 +237,7 @@ class RunningNodeVerb(VerbExtension):
                 )
             else:
                 self.create_a_node_model(
-                    args.node_name, f"{args.node_name}.ros2", args.generate_value, args
+                    args.node_name, f"{args.node_name}.ros", args.generate_value, args
                 )
         else:
             with NodeStrategy(args) as node:
@@ -247,7 +247,7 @@ class RunningNodeVerb(VerbExtension):
                     if not re.search(r"transform_listener_impl", tmp_node.full_name):
                         self.create_a_node_model(
                             tmp_node.full_name,
-                            f"{args.output_dir}/{tmp_node.name}.ros2",
+                            f"{args.output_dir}/{tmp_node.name}.ros",
                             args.generate_value,
                             args,
                         )
